@@ -618,7 +618,7 @@ function PlayPageClient() {
 
     // 找出所有有效速度的最大值，用于线性映射
     const validSpeeds = successfulResults
-      .map((result) => {
+      。map((result) => {
         const speedStr = result.testResult.loadSpeed;
         if (speedStr === '未知' || speedStr === '测量中...') return 0;
 
@@ -745,7 +745,7 @@ function PlayPageClient() {
     if (
       !detailData ||
       !detailData.episodes ||
-      episodeIndex >= detailData.episodes.length
+      episodeIndex >= detailData.episodes。length
     ) {
       setVideoUrl('');
       return;
@@ -2117,7 +2117,7 @@ function PlayPageClient() {
 
               ensureVideoSource(video, url);
 
-              hls.on(Hls.Events.ERROR, function (event: any, data: any) {
+              hls.于(Hls.Events.ERROR, function (event: any, data: any) {
                 console.error('HLS Error:', event, data);
                 if (data.fatal) {
                   switch (data.type) {
@@ -2609,7 +2609,7 @@ function PlayPageClient() {
               const customizePlaceholder = () => {
                 const emitterInput = document.querySelector('.artplayer-plugin-danmuku .apd-emitter input');
                 if (emitterInput) {
-                  const placeholderText = '\u004E\u0065\u0077\u0054\u0056\u0020\u9080\u60A8\u53D1\u4E2A\u53CB\u5584\u7684\u5F39\u5E55\u89C1\u8BC1';
+                  const placeholderText = '蓝果TV邀您发个弹幕见证一下！';
                   emitterInput.setAttribute('placeholder', placeholderText);
                 }
               };
