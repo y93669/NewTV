@@ -19,8 +19,6 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { getAuthInfoFromBrowserCookie } from '@/lib/auth';
-import { CURRENT_VERSION } from '@/lib/version';
-import { checkForUpdates, UpdateStatus } from '@/lib/version_check';
 import {
   getCachedWatchingUpdates,
   clearWatchingUpdates,
@@ -28,9 +26,6 @@ import {
   checkWatchingUpdates,
   setupPeriodicUpdateCheck
 } from '@/lib/watching-updates';
-
-// 移除 VersionPanel 导入
-// import { VersionPanel } from './VersionPanel';
 
 interface AuthInfo {
   username?: string;
@@ -42,7 +37,6 @@ export const UserMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-  // 移除 isVersionPanelOpen 状态
   const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
   const [storageType, setStorageType] = useState<string>('localstorage');
   const [mounted, setMounted] = useState(false);
@@ -114,10 +108,6 @@ export const UserMenu: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordLoading, setPasswordLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-
-  // 版本检查相关状态
-  const [updateStatus, setUpdateStatus] = useState<UpdateStatus | null>(null);
-  const [isChecking, setIsChecking] = useState(true);
 
   // 确保组件已挂载
   useEffect(() => {
@@ -229,22 +219,6 @@ export const UserMenu: React.FC = () => {
         setLiveDirectConnect(JSON.parse(savedLiveDirectConnect));
       }
     }
-  }, []);
-
-  // 版本检查
-  useEffect(() => {
-    const checkUpdate = async () => {
-      try {
-        const status = await checkForUpdates();
-        setUpdateStatus(status);
-      } catch (error) {
-        console.warn('版本检查失败:', error);
-      } finally {
-        setIsChecking(false);
-      }
-    };
-
-    checkUpdate();
   }, []);
 
   // 点击外部区域关闭下拉框
@@ -608,28 +582,6 @@ export const UserMenu: React.FC = () => {
             <LogOut className='w-4 h-4' />
             <span className='font-medium'>登出</span>
           </button>
-
-          {/* 分割线 */}
-          <div className='my-1 border-t border-gray-200 dark:border-gray-700'></div>
-
-          {/* 版本信息 */}
-          <div className='w-full px-3 py-2 text-center text-gray-500 dark:text-gray-400 text-xs'>
-            <div className='flex items-center justify-center gap-1'>
-              <span className='font-mono'>v{CURRENT_VERSION}</span>
-              {!isChecking &&
-                updateStatus &&
-                updateStatus !== UpdateStatus.FETCH_FAILED && (
-                  <div
-                    className={`w-2 h-2 rounded-full -translate-y-2 ${updateStatus === UpdateStatus.HAS_UPDATE
-                      ? 'bg-yellow-500'
-                      : updateStatus === UpdateStatus.NO_UPDATE
-                        ? 'bg-blue-400'
-                        : ''
-                      }`}
-                  ></div>
-                )}
-            </div>
-          </div>
         </div>
       </div>
     </>
@@ -1145,10 +1097,6 @@ export const UserMenu: React.FC = () => {
         {hasWatchingUpdates && (
           <div className='absolute top-[2px] right-[2px] w-2.5 h-2.5 bg-pink-500 rounded-full animate-pulse'></div>
         )}
-        {/* 版本更新提醒小红点 */}
-        {updateStatus === UpdateStatus.HAS_UPDATE && !hasWatchingUpdates && (
-          <div className='absolute top-[2px] right-[2px] w-2 h-2 bg-yellow-500 rounded-full'></div>
-        )}
       </div>
 
       {/* 使用 Portal 将菜单面板渲染到 document.body */}
@@ -1161,8 +1109,6 @@ export const UserMenu: React.FC = () => {
       {isChangePasswordOpen &&
         mounted &&
         createPortal(changePasswordPanel, document.body)}
-
-      {/* 移除了 VersionPanel 组件的渲染 */}
     </>
   );
 };
