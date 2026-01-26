@@ -618,7 +618,7 @@ function PlayPageClient() {
 
     // 找出所有有效速度的最大值，用于线性映射
     const validSpeeds = successfulResults
-      。map((result) => {
+      .map((result) => {
         const speedStr = result.testResult.loadSpeed;
         if (speedStr === '未知' || speedStr === '测量中...') return 0;
 
@@ -745,7 +745,7 @@ function PlayPageClient() {
     if (
       !detailData ||
       !detailData.episodes ||
-      episodeIndex >= detailData.episodes。length
+      episodeIndex >= detailData.episodes.length
     ) {
       setVideoUrl('');
       return;
@@ -954,7 +954,7 @@ function PlayPageClient() {
             const currentTime = artPlayerRef.current?.currentTime || 0;
             if (currentTime > 0) {
               const newConfig = {
-                ...skipConfigRef.current，
+                ...skipConfigRef.current,
                 intro_time: currentTime,
               };
               handleSkipConfigChange(newConfig);
@@ -962,7 +962,7 @@ function PlayPageClient() {
             }
           },
         });
-        artPlayerRef.current。setting.update({
+        artPlayerRef.current.setting.update({
           name: '设置片尾',
           html: '设置片尾',
           icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 6L7 18" stroke="#ffffff" stroke-width="2"/><path d="M7 12L15 12" stroke="#ffffff" stroke-width="2"/><circle cx="19" cy="12" r="2" fill="#ffffff"/></svg>',
@@ -1281,7 +1281,7 @@ function PlayPageClient() {
         } catch (error) {
           console.error('集数变化后加载外部弹幕失败:', error);
         }
-      }， 1000); // 延迟1秒确保视频加载完成
+      }, 1000); // 延迟1秒确保视频加载完成
     }
   }, [detail, currentEpisodeIndex]);
 
@@ -2117,7 +2117,7 @@ function PlayPageClient() {
 
               ensureVideoSource(video, url);
 
-              hls.于(Hls.Events.ERROR, function (event: any, data: any) {
+              hls.on(Hls.Events.ERROR, function (event: any, data: any) {
                 console.error('HLS Error:', event, data);
                 if (data.fatal) {
                   switch (data.type) {
@@ -2233,7 +2233,7 @@ function PlayPageClient() {
                   handleSkipConfigChange(newConfig);
                   return `-${formatTime(-outroTime)}`;
                 }
-              }，
+              },
             },
           ],
           // 控制栏配置
