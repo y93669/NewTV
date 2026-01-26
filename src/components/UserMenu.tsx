@@ -57,7 +57,6 @@ export const UserMenu: React.FC = () => {
       html.style.overflow = 'hidden';
 
       return () => {
-
         // 恢复所有原始样式
         body.style.overflow = originalBodyOverflow;
         html.style.overflow = originalHtmlOverflow;
@@ -68,9 +67,9 @@ export const UserMenu: React.FC = () => {
   // 设置相关状态
   const [defaultAggregateSearch, setDefaultAggregateSearch] = useState(true);
   const [doubanProxyUrl, setDoubanProxyUrl] = useState('');
-  const [enableOptimization, setEnableOptimization] = useState(true);
+  const [enableOptimization, setEnableOptimization] = useState(true); // 默认开启
   const [fluidSearch, setFluidSearch] = useState(true);
-  const [liveDirectConnect, setLiveDirectConnect] = useState(false);
+  const [liveDirectConnect, setLiveDirectConnect] = useState(true); // 默认开启
   const [doubanDataSource, setDoubanDataSource] = useState('cmliussss-cdn-tencent');
   const [doubanImageProxyType, setDoubanImageProxyType] = useState('cmliussss-cdn-tencent');
   const [doubanImageProxyUrl, setDoubanImageProxyUrl] = useState('');
@@ -201,8 +200,8 @@ export const UserMenu: React.FC = () => {
       if (savedEnableOptimization !== null) {
         setEnableOptimization(JSON.parse(savedEnableOptimization));
       } else {
-        // 默认关闭优选和测速
-        setEnableOptimization(false);
+        // 默认开启优选和测速
+        setEnableOptimization(true); // 修改为默认开启
       }
 
       const savedFluidSearch = localStorage.getItem('fluidSearch');
@@ -217,6 +216,9 @@ export const UserMenu: React.FC = () => {
       const savedLiveDirectConnect = localStorage.getItem('liveDirectConnect');
       if (savedLiveDirectConnect !== null) {
         setLiveDirectConnect(JSON.parse(savedLiveDirectConnect));
+      } else {
+        // 默认开启直播直连
+        setLiveDirectConnect(true); // 修改为默认开启
       }
     }
   }, []);
@@ -443,9 +445,9 @@ export const UserMenu: React.FC = () => {
       (window as any).RUNTIME_CONFIG?.FLUID_SEARCH !== false;
 
     setDefaultAggregateSearch(true);
-    setEnableOptimization(false);
+    setEnableOptimization(true); // 重置为默认开启
     setFluidSearch(defaultFluidSearch);
-    setLiveDirectConnect(false);
+    setLiveDirectConnect(true); // 重置为默认开启
     setDoubanProxyUrl(defaultDoubanProxy);
     setDoubanDataSource(defaultDoubanProxyType);
     setDoubanImageProxyType(defaultDoubanImageProxyType);
@@ -453,9 +455,9 @@ export const UserMenu: React.FC = () => {
 
     if (typeof window !== 'undefined') {
       localStorage.setItem('defaultAggregateSearch', JSON.stringify(true));
-      localStorage.setItem('enableOptimization', JSON.stringify(false));
+      localStorage.setItem('enableOptimization', JSON.stringify(true)); // 保存为开启
       localStorage.setItem('fluidSearch', JSON.stringify(defaultFluidSearch));
-      localStorage.setItem('liveDirectConnect', JSON.stringify(false));
+      localStorage.setItem('liveDirectConnect', JSON.stringify(true)); // 保存为开启
       localStorage.setItem('doubanProxyUrl', defaultDoubanProxy);
       localStorage.setItem('doubanDataSource', defaultDoubanProxyType);
       localStorage.setItem('doubanImageProxyType', defaultDoubanImageProxyType);
