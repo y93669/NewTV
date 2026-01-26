@@ -338,11 +338,11 @@ function HomeClient() {
                 </ScrollableRow>
               </section>
 
-              {/* 热门动漫 */}
+                          {/* 每日新番放送 */}
               <section className='mb-8'>
                 <div className='mb-4 flex items-center justify-between'>
                   <h2 className='text-xl font-bold text-gray-800 dark:text-gray-200'>
-                    热门动漫
+                    新番放送
                   </h2>
                   <Link
                     href='/douban?type=anime'
@@ -358,7 +358,7 @@ function HomeClient() {
                     Array.from({ length: 8 }).map((_, index) => (
                       <div
                         key={index}
-                        className='min-w-[115px] w-[115px] sm:min-w-[180px] sm:w-44'
+                        className='min-w-[96px] w-24 sm:min-w-[180px] sm:w-44'
                       >
                         <div className='relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-gray-200 animate-pulse dark:bg-gray-800'>
                           <div className='absolute inset-0 bg-gray-300 dark:bg-gray-700'></div>
@@ -366,22 +366,50 @@ function HomeClient() {
                         <div className='mt-2 h-4 bg-gray-200 rounded animate-pulse dark:bg-gray-800'></div>
                       </div>
                     ))
-                    : // 显示真实数据
-                    hotAnime.map((anime, index) => (
-                      <div
-                        key={index}
-                        className='min-w-[115px] w-[115px] sm:min-w-[180px] sm:w-44'
-                      >
-                        <VideoCard
-                          from='douban'
-                          title={anime.title}
-                          poster={anime.poster}
-                          douban_id={Number(anime.id)}
-                          rate={anime.rate}
-                          year={anime.year}
-                        />
-                      </div>
-                    ))}
+                    : // 展示当前日期的番剧
+                    (() => {
+                      // 获取当前日期对应的星期
+                      const today = new Date();
+                      const weekdays = [
+                        'Sun',
+                        'Mon',
+                        'Tue',
+                        'Wed',
+                        'Thu',
+                        'Fri',
+                        'Sat',
+                      ];
+                      const currentWeekday = weekdays[today.getDay()];
+
+                      // 找到当前星期对应的番剧数据
+                      const todayAnimes =
+                        bangumiCalendarData.find(
+                          (item) => item.weekday.en === currentWeekday
+                        )?.items || [];
+
+                      return todayAnimes.map((anime, index) => (
+                        <div
+                          key={`${anime.id}-${index}`}
+                          className='min-w-[96px] w-24 sm:min-w-[180px] sm:w-44'
+                        >
+                          <VideoCard
+                            from='douban'
+                            title={anime.name_cn || anime.name}
+                            poster={
+                              anime.images.large ||
+                              anime.images.common ||
+                              anime.images.medium ||
+                              anime.images.small ||
+                              anime.images.grid
+                            }
+                            douban_id={anime.id}
+                            rate={anime.rating?.score?.toFixed(1) || ''}
+                            year={anime.air_date?.split('-')?.[0] || ''}
+                            isBangumi={true}
+                          />
+                        </div>
+                      ));
+                    })()}
                 </ScrollableRow>
               </section>
 
