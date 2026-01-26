@@ -954,7 +954,7 @@ function PlayPageClient() {
             const currentTime = artPlayerRef.current?.currentTime || 0;
             if (currentTime > 0) {
               const newConfig = {
-                ...skipConfigRef.current,
+                ...skipConfigRef.current，
                 intro_time: currentTime,
               };
               handleSkipConfigChange(newConfig);
@@ -962,7 +962,7 @@ function PlayPageClient() {
             }
           },
         });
-        artPlayerRef.current.setting.update({
+        artPlayerRef.current。setting.update({
           name: '设置片尾',
           html: '设置片尾',
           icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 6L7 18" stroke="#ffffff" stroke-width="2"/><path d="M7 12L15 12" stroke="#ffffff" stroke-width="2"/><circle cx="19" cy="12" r="2" fill="#ffffff"/></svg>',
@@ -1281,7 +1281,7 @@ function PlayPageClient() {
         } catch (error) {
           console.error('集数变化后加载外部弹幕失败:', error);
         }
-      }, 1000); // 延迟1秒确保视频加载完成
+      }， 1000); // 延迟1秒确保视频加载完成
     }
   }, [detail, currentEpisodeIndex]);
 
@@ -2233,7 +2233,7 @@ function PlayPageClient() {
                   handleSkipConfigChange(newConfig);
                   return `-${formatTime(-outroTime)}`;
                 }
-              },
+              }，
             },
           ],
           // 控制栏配置
@@ -2609,7 +2609,7 @@ function PlayPageClient() {
               const customizePlaceholder = () => {
                 const emitterInput = document.querySelector('.artplayer-plugin-danmuku .apd-emitter input');
                 if (emitterInput) {
-                  const placeholderText = '蓝果TV邀您发个弹幕见证一下！';
+                  const placeholderText = '\u84DD\u679C\u0054\u0056\u9080\u60A8\u53D1\u4E2A\u5F39\u5E55\u89C1\u8BC1\u4E00\u4E0B\uFF01';
                   emitterInput.setAttribute('placeholder', placeholderText);
                 }
               };
