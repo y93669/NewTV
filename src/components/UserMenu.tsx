@@ -59,7 +59,7 @@ export const UserMenu: React.FC = () => {
 
       // 只设置 overflow 来阻止滚动
       body.style.overflow = 'hidden';
-      html.style.overflow = 'hidden';
+      html.style。overflow = 'hidden';
 
       return () => {
 
@@ -1168,6 +1168,6 @@ export const UserMenu: React.FC = () => {
         createPortal(changePasswordPanel, document.body)}
 
       
-    </>
+    
   );
 };
