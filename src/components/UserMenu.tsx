@@ -29,7 +29,8 @@ import {
   setupPeriodicUpdateCheck
 } from '@/lib/watching-updates';
 
-import { VersionPanel } from './VersionPanel';
+// 移除 VersionPanel 导入
+// import { VersionPanel } from './VersionPanel';
 
 interface AuthInfo {
   username?: string;
@@ -41,7 +42,7 @@ export const UserMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-  const [isVersionPanelOpen, setIsVersionPanelOpen] = useState(false);
+  // 移除 isVersionPanelOpen 状态
   const [authInfo, setAuthInfo] = useState<AuthInfo | null>(null);
   const [storageType, setStorageType] = useState<string>('localstorage');
   const [mounted, setMounted] = useState(false);
@@ -59,7 +60,7 @@ export const UserMenu: React.FC = () => {
 
       // 只设置 overflow 来阻止滚动
       body.style.overflow = 'hidden';
-      html.style。overflow = 'hidden';
+      html.style.overflow = 'hidden';
 
       return () => {
 
@@ -141,7 +142,7 @@ export const UserMenu: React.FC = () => {
       unsubscribeWatchingUpdates();
       cleanupPeriodicCheck();
     };
-  }， []);
+  }, []);
 
   // 获取认证信息和存储类型
   useEffect(() => {
@@ -612,14 +613,8 @@ export const UserMenu: React.FC = () => {
           <div className='my-1 border-t border-gray-200 dark:border-gray-700'></div>
 
           {/* 版本信息 */}
-          <button
-            onClick={() => {
-              setIsVersionPanelOpen(true);
-              handleCloseMenu();
-            }}
-            className='w-full px-3 py-2 text-center flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-xs'
-          >
-            <div className='flex items-center gap-1'>
+          <div className='w-full px-3 py-2 text-center text-gray-500 dark:text-gray-400 text-xs'>
+            <div className='flex items-center justify-center gap-1'>
               <span className='font-mono'>v{CURRENT_VERSION}</span>
               {!isChecking &&
                 updateStatus &&
@@ -634,7 +629,7 @@ export const UserMenu: React.FC = () => {
                   ></div>
                 )}
             </div>
-          </button>
+          </div>
         </div>
       </div>
     </>
@@ -1167,7 +1162,7 @@ export const UserMenu: React.FC = () => {
         mounted &&
         createPortal(changePasswordPanel, document.body)}
 
-      
-    
+      {/* 移除了 VersionPanel 组件的渲染 */}
+    </>
   );
 };
