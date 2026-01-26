@@ -41,8 +41,8 @@ const MobileBottomNav = ({ activePath }: MobileBottomNavProps) => {
     { icon: Home, label: '首页', href: '/' },
     { icon: Film, label: '电影', href: '/douban?type=movie' },
     { icon: Tv, label: '剧集', href: '/douban?type=tv' },
-    { icon: Radio, label: '直播', href: '/live' },
-    { icon: Youtube, label: 'YouTube', href: '/youtube' },
+    { icon: Cat, label: '动漫', href: '/douban?type=anime' }, // 直播与动漫调换位置
+    { icon: Clover, label: '综艺', href: '/douban?type=show' }, // YouTube与综艺调换位置
     { icon: Ellipsis, label: '更多', href: '#more' },
   ]);
 
@@ -74,12 +74,12 @@ const MobileBottomNav = ({ activePath }: MobileBottomNavProps) => {
       return decodedActive === '/';
     }
 
-    // 直播页面匹配
+    // 直播页面匹配 (现在在更多菜单中)
     if (href === '/live') {
       return decodedActive === '/live' || decodedActive.startsWith('/live/');
     }
 
-    // YouTube页面匹配
+    // YouTube页面匹配 (现在在更多菜单中)
     if (href === '/youtube') {
       return decodedActive === '/youtube' || decodedActive.startsWith('/youtube/');
     }
@@ -108,8 +108,8 @@ const MobileBottomNav = ({ activePath }: MobileBottomNavProps) => {
   };
 
   const moreActive = isInitialized && currentActive ? (
-    currentActive.includes('type=anime') ||
-    currentActive.includes('type=show') ||
+    currentActive.includes('/live') ||
+    currentActive.includes('/youtube') ||
     currentActive.includes('type=short-drama') ||
     currentActive.includes('type=custom') ||
     currentActive.includes('/cloud-disk')
@@ -187,18 +187,18 @@ const MobileBottomNav = ({ activePath }: MobileBottomNavProps) => {
                 <Clapperboard className='h-4 w-4' /> 短剧
               </Link>
               <Link
-                href='/douban?type=anime'
+                href='/live'
                 className='flex-1 px-2 py-3 flex items-center justify-center gap-1 text-xs text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
                 onClick={() => setShowMore(false)}
               >
-                <Cat className='h-4 w-4' /> 动漫
+                <Radio className='h-4 w-4' /> 直播
               </Link>
               <Link
-                href='/douban?type=show'
+                href='/youtube'
                 className='flex-1 px-2 py-3 flex items-center justify-center gap-1 text-xs text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
                 onClick={() => setShowMore(false)}
               >
-                <Clover className='h-4 w-4' /> 综艺
+                <Youtube className='h-4 w-4' /> YouTube
               </Link>
               {hasCustom && (
                 <Link
