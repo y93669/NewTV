@@ -5,7 +5,6 @@ import Link from 'next/link';
 import AIChatEntry from './AIChatEntry';
 import { BackButton } from './BackButton';
 import { useSite } from './SiteProvider';
-import { ThemeToggle } from './ThemeToggle';
 import { UserMenu } from './UserMenu';
 
 interface MobileHeaderProps {
@@ -17,11 +16,23 @@ const MobileHeader = ({ showBackButton = false }: MobileHeaderProps) => {
   return (
     <header className='md:hidden fixed top-0 left-0 right-0 z-[999] w-full glass-nav border-b border-white/20 shadow-glass dark:border-white/10'>
       <div className='h-12 flex items-center justify-between px-4'>
-        {/* 左侧：搜索按钮、AI推荐按钮、返回按钮和设置按钮 */}
+        {/* 左侧：标题 */}
+        <div className='flex items-center'>
+          <Link
+            href='/'
+            className='text-xl font-bold text-black dark:text-white tracking-tight hover:opacity-80 transition-opacity'
+          >
+            {siteName}
+          </Link>
+        </div>
+
+        {/* 右侧：返回按钮、AI聊天入口、搜索按钮、用户菜单 */}
         <div className='flex items-center gap-2'>
+          {showBackButton && <BackButton />}
+          <AIChatEntry />
           <Link
             href='/search'
-            className='w-10 h-10 p-2 rounded-full flex items-center justify-center text-gray-600 hover:bg-white/20 dark:text-gray-300 dark:hover:bg-white/10 transition-all duration-200'
+            className='w-10 h-10 p-2 rounded-full flex items-center justify-center text-gray-600 hover:bg-white/20 dark:text-gray300 dark:hover:bg-white/10 transition-all duration-200'
           >
             <svg
               className='w-full h-full'
@@ -38,25 +49,8 @@ const MobileHeader = ({ showBackButton = false }: MobileHeaderProps) => {
               />
             </svg>
           </Link>
-          <AIChatEntry />
-          {showBackButton && <BackButton />}
-        </div>
-
-        {/* 右侧按钮 */}
-        <div className='flex items-center gap-2'>
-          <ThemeToggle />
           <UserMenu />
         </div>
-      </div>
-
-      {/* 中间：Logo（绝对居中） */}
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <Link
-          href='/'
-          className='text-2xl font-bold text-black dark:text-white tracking-tight hover:opacity-80 transition-opacity'
-        >
-          {siteName}
-        </Link>
       </div>
     </header>
   );
