@@ -141,7 +141,7 @@ export const UserMenu: React.FC = () => {
       unsubscribeWatchingUpdates();
       cleanupPeriodicCheck();
     };
-  }, []);
+  }， []);
 
   // 获取认证信息和存储类型
   useEffect(() => {
@@ -1167,11 +1167,7 @@ export const UserMenu: React.FC = () => {
         mounted &&
         createPortal(changePasswordPanel, document.body)}
 
-      {/* 版本面板 */}
-      <VersionPanel
-        isOpen={isVersionPanelOpen}
-        onClose={() => setIsVersionPanelOpen(false)}
-      />
+      
     </>
   );
 };
